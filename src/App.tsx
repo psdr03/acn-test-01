@@ -10,19 +10,21 @@ import {
   MenuItem,
   InputAdornment,
   InputLabel,
-  FormControl
+  FormControl,
+  Snackbar,
+  Alert
 } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import { getItemDescription } from './services/services';
+import { getItemDescriptions, submitFormData } from './services/services';
 
 // @ts-ignore
 // no type definitions for react-payment-inputs
 import { usePaymentInputs } from 'react-payment-inputs';
 import { makeStyles, createStyles } from '@mui/styles';
 import { LocalizationProvider } from '@mui/lab';
-import { IForm, IItem } from './interfaces/interfaces';
+import { IForm, IItem, IResponse } from './interfaces/interfaces';
   
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -56,6 +58,7 @@ const App: React.FC = () => {
   const classes = useStyles();
   const [ itemDescriptions, setItemDescriptions ] = useState<IItem[]>();
   const { meta, getCardNumberProps, getExpiryDateProps } = usePaymentInputs();
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
   const { control, register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
@@ -69,22 +72,25 @@ const App: React.FC = () => {
     }
   });
 
-  const onSubmit = (data: IForm) => {
-    console.log(data);
+  const onSubmit = async (data: IForm) => {
+    const res: IResponse = await submitFormData(data);
+    if (res.success === "true") {
+      setShowSnackbar(true)
+    }
   }
 
   const populateItemDescriptions = async() => {
-    const res: IItem[] = await getItemDescription();
+    const res: IItem[] = await getItemDescriptions();
     setItemDescriptions(res);
+  }
+
+  const handleCloseSnackbar = () => {
+    setShowSnackbar(false);
   }
 
   useEffect(() => {
     populateItemDescriptions();
   }, [])
-
-  const inputProps = {
-    step: .01,
-  }
 
   return (
     <Box className={classes.container}>
@@ -206,6 +212,15 @@ const App: React.FC = () => {
           </Box>
         </form>
       </Paper>
+
+      <Snackbar
+        open={showSnackbar}
+        autoHideDuration={2000}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }} variant="filled">
+          Payment sent!
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }

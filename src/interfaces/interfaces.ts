@@ -14,3 +14,7 @@ export interface IItem {
     title: string,
     completed: boolean
 }
+
+export interface IResponse {
+    success: string
+}
