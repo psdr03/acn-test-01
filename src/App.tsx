@@ -52,19 +52,10 @@ const useStyles = makeStyles((theme: Theme) => {
   })
 })
 
-const initialState = [
-  {
-    "userId": 1,
-    "id": 1,
-    "title": "test",
-    "completed": false
-  }
-]
-
 const App: React.FC = () => {
   const classes = useStyles();
-  const [ itemDescriptions, setItemDescriptions ] = useState<IItem[]>(initialState);
-  const { meta, getCardNumberProps, getExpiryDateProps, getCVCProps } = usePaymentInputs();
+  const [ itemDescriptions, setItemDescriptions ] = useState<IItem[]>();
+  const { meta, getCardNumberProps, getExpiryDateProps } = usePaymentInputs();
 
   const { control, register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
@@ -188,7 +179,7 @@ const App: React.FC = () => {
             }}
             render={({ field }) => 
               <FormControl fullWidth className={classes.formControl}>
-                <InputLabel id="item-description-label">Item Description</InputLabel>
+                <InputLabel id="item-description-label">Item Description *</InputLabel>
                 <Select
                   {...register("itemDesc", {
                     required: true
@@ -200,7 +191,7 @@ const App: React.FC = () => {
                   fullWidth
                   required
                 >
-                  {itemDescriptions.map((item) => {
+                  {itemDescriptions && itemDescriptions.map((item) => {
                     return (
                       <MenuItem key={item.title} value={item.title}>{item.title}</MenuItem>
                     )
