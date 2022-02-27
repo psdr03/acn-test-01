@@ -91,9 +91,6 @@ const App: React.FC = () => {
     populateItemDescriptions();
   }, [])
 
-  console.log(errors)
-  console.log(meta)
-
   return (
     <Box className={classes.container}>
       <Paper elevation={24} className={classes.paper}>

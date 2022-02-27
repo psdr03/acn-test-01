@@ -16,4 +16,9 @@ https://psdr03.github.io/acn-test-01/
 - interfaces - contains interfaces file that can be imported throughout the application
 - services - contains the services file where API calls are consolidated and imported throughout the application
 
-
+## Sample card numbers
+React payment inputs uses Mastercard and Visa card numbers to check validity. Some valid card numbers for testing:
+- 5555555555554444
+- 5105105105105100
+- 4111111111111111
+- 4012888888881881
