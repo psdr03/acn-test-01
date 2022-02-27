@@ -92,7 +92,7 @@ const App: React.FC = () => {
   }, [])
 
   console.log(errors)
-  console.log(meta.erroredInputs)
+  console.log(meta)
 
   return (
     <Box className={classes.container}>
@@ -137,10 +137,19 @@ const App: React.FC = () => {
           <TextField {...register("amount", {
             required: true,
             pattern: /^\d*(\.\d{0,2})?$/i,
+            validate: {
+              cannotBeZero: v => v > 0
+            }
           })} InputProps={{
             type: "number",
             startAdornment: <InputAdornment position="start">$</InputAdornment>
-          }} inputProps={{step: ".01"}} fullWidth label="Amount" margin="normal" required error={errors.amount ? true : false}/>
+          }} inputProps={{step: ".01"}} 
+            fullWidth label="Amount" 
+            margin="normal" 
+            required 
+            error={errors.amount ? true : false}
+            helperText={errors.amount ? "Amount should be more than 0" : null}
+          />
 
           <Controller
             name='cardNum'
@@ -162,7 +171,7 @@ const App: React.FC = () => {
                 onChange={field.onChange}
                 value={field.value}
                 error={meta.touchedInputs.cardNumber && meta.erroredInputs.cardNumber ? true : false }
-                helperText={meta.erroredInputs.cardNumber ? meta.erroredInputs.cardNumber : null}
+                helperText={(meta.touchedInputs.cardNumber && meta.erroredInputs.cardNumber) ? meta.erroredInputs.cardNumber : null}
               />
             }
           />
@@ -185,7 +194,7 @@ const App: React.FC = () => {
                 onChange={field.onChange}
                 value={field.value}
                 error={meta.touchedInputs.expiryDate && meta.erroredInputs.expiryDate ? true : false }
-                helperText={meta.erroredInputs.expiryDate ? meta.erroredInputs.expiryDate : null}
+                helperText={(meta.touchedInputs.expiryDate && meta.erroredInputs.expiryDate) ? meta.erroredInputs.expiryDate : null}
               />
             }
           />
