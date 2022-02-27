@@ -129,6 +129,7 @@ const App: React.FC = () => {
                   onChange={field.onChange}
                   inputFormat="MM/DD/YYYY"
                   renderInput={(params) => <TextField required fullWidth margin="normal" {...params} error={errors.dob ? true : false} />}
+                  disableFuture
                 />
               </LocalizationProvider>
             }
