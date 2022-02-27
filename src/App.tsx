@@ -98,14 +98,21 @@ const App: React.FC = () => {
         <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non ante magna. Nullam eu velit at ante vestibulum dignissim. Sed luctus lacinia orci eget egestas</Typography>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <TextField {...register("name", {
-            required: true
-          })} fullWidth label="Name" margin="normal" required />
+          <TextField 
+            {...register("name", {
+              required: true
+            })} 
+            fullWidth 
+            label="Name" 
+            margin="normal" 
+            required 
+          />
 
-          <TextField {...register("email", {
-            required: true,
-            pattern: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-          })} 
+          <TextField 
+            {...register("email", {
+              required: true,
+              pattern: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+            })} 
             fullWidth 
             label="Email" 
             margin="normal" 
@@ -132,16 +139,19 @@ const App: React.FC = () => {
             }
           />
 
-          <TextField {...register("amount", {
-            required: true,
-            pattern: /^\d*(\.\d{0,2})?$/i,
-            validate: {
-              cannotBeZero: v => v > 0
-            }
-          })} InputProps={{
-            type: "number",
-            startAdornment: <InputAdornment position="start">$</InputAdornment>
-          }} inputProps={{step: ".01"}} 
+          <TextField 
+            {...register("amount", {
+              required: true,
+              pattern: /^\d*(\.\d{0,2})?$/i,
+              validate: {
+                cannotBeZero: v => v > 0
+              }
+            })} 
+            InputProps={{
+              type: "number",
+              startAdornment: <InputAdornment position="start">$</InputAdornment>
+            }} 
+            inputProps={{step: ".01"}} 
             fullWidth label="Amount" 
             margin="normal" 
             required 

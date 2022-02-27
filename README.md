@@ -9,7 +9,7 @@ https://psdr03.github.io/acn-test-01/
 - react hook form
 - moment - Required by datetime picker
 - react payment inputs - For validation of credit card numbers
-- mockAxios - For mocking the initial API call during the rendering of the application
+- mockAxios - For mocking the initial API call during the rendering of the application (unit tests)
 
 ## Folder structure
 - constants - contains a constants file where strings can be placed and imported in other files so as to avoid typos
