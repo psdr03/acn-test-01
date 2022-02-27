@@ -58,7 +58,7 @@ const App: React.FC = () => {
   const classes = useStyles();
   const [ itemDescriptions, setItemDescriptions ] = useState<IItem[]>();
   const { meta, getCardNumberProps, getExpiryDateProps } = usePaymentInputs();
-  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [ showSnackbar, setShowSnackbar ] = useState(false);
 
   const { control, register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
@@ -144,8 +144,10 @@ const App: React.FC = () => {
             }}
             render={({ field }) => 
               <TextField
-                fullWidth inputProps={getCardNumberProps({})}
+                fullWidth
+                inputProps={getCardNumberProps({})}
                 label="Credit card number"
+                aria-labelledby="Credit card number"
                 margin="normal" 
                 required
                 onChange={field.onChange}
