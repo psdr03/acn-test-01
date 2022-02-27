@@ -59,7 +59,6 @@ const App: React.FC = () => {
   const [ itemDescriptions, setItemDescriptions ] = useState<IItem[]>();
   const { meta, getCardNumberProps, getExpiryDateProps } = usePaymentInputs();
   const [ showSnackbar, setShowSnackbar ] = useState(false);
-
   const { control, register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       name: '',
@@ -92,6 +91,9 @@ const App: React.FC = () => {
     populateItemDescriptions();
   }, [])
 
+  console.log(errors)
+  console.log(meta.erroredInputs)
+
   return (
     <Box className={classes.container}>
       <Paper elevation={24} className={classes.paper}>
@@ -106,7 +108,14 @@ const App: React.FC = () => {
           <TextField {...register("email", {
             required: true,
             pattern: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-          })} fullWidth label="Email" margin="normal" required error={errors.email ? true : false}/>
+          })} 
+            fullWidth 
+            label="Email" 
+            margin="normal" 
+            required 
+            error={errors.email ? true : false}
+            helperText={errors.email ? "Pleasae enter a valid email address" : null}
+          />
 
           <Controller
             name='dob'
@@ -153,6 +162,7 @@ const App: React.FC = () => {
                 onChange={field.onChange}
                 value={field.value}
                 error={meta.touchedInputs.cardNumber && meta.erroredInputs.cardNumber ? true : false }
+                helperText={meta.erroredInputs.cardNumber ? meta.erroredInputs.cardNumber : null}
               />
             }
           />
@@ -175,6 +185,7 @@ const App: React.FC = () => {
                 onChange={field.onChange}
                 value={field.value}
                 error={meta.touchedInputs.expiryDate && meta.erroredInputs.expiryDate ? true : false }
+                helperText={meta.erroredInputs.expiryDate ? meta.erroredInputs.expiryDate : null}
               />
             }
           />
@@ -214,15 +225,13 @@ const App: React.FC = () => {
           </Box>
         </form>
       </Paper>
-
-      <Snackbar
-        open={showSnackbar}
-        autoHideDuration={2000}
-      >
+      
+      <Snackbar open={showSnackbar} autoHideDuration={1000}>
         <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }} variant="filled">
           Payment sent!
         </Alert>
       </Snackbar>
+
     </Box>
   )
 }
