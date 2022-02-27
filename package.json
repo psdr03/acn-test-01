@@ -2,7 +2,7 @@
   "name": "acn-test-01",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://psdr03.github.io/acn-test-01"
+  "homepage": "http://psdr03.github.io/acn-test-01",
   "dependencies": {
     "@date-io/moment": "^2.13.1",
     "@emotion/react": "^11.8.1",
